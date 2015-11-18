@@ -1,0 +1,22 @@
+<div class="col-xs-12 col-md-8 col-md-offset-2">
+
+  <h2>Sign Up</h2>
+  
+  <form ng-submit="signUp(registrationForm)" role="form" ng-init="registrationForm = {}">
+
+    <div class="form-group">
+      <input type="username" name="username" ng-model="registrationForm.sign_up.username" placeholder="Username" required="required" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+      <input type="email" name="email" ng-model="registrationForm.sign_up.email" placeholder="Email" required="required" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+      <input type="password" name="password" ng-model="registrationForm.sign_up.password" placeholder="Password" required="required" class="form-control"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg">Register</button>
+  </form>
+
+</div>

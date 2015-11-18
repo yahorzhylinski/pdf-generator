@@ -1,0 +1,18 @@
+.section {
+  padding: 5px 5%;   
+  width: 90%;
+  margin-bottom: 10px;
+}
+
+.bordered {
+  border: 1px solid black;      
+}
+
+table.section td {
+  border: 1px solid black;
+  padding: 3px;
+}
+
+.after-next-page {
+  page-break-after: always;
+}

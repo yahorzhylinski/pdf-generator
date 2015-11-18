@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-xs-12">
+    
+    <div class="col-xs-12">
+      <a class="btn btn-success pull-right" href="#/reports/new">Create new report</a>
+    </div>
+
+    <h2 class="text-center">Reports</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <td>Campaign ID</td>
+          <td>Created at</td>
+          <td>Status</td>
+          <td>Edit</td>
+        </tr>
+      </thead>
+      <tr ng-repeat="report in reports">
+        <td>{{report.campaign_id}}</td>
+        <td>{{report.created_at | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{report.status}}</td>
+        <td><a href="#/reports/{{report.id}}">Edit</a></td>
+      </tr>
+    </table>
+  </div>
+</div>

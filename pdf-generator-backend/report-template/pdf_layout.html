@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Report - Compaign #<%= @campaign.id %></title>
+
+  <script src="<%= Rails.root %>/report-template/Chart.js"></script>
+  <script src="<%= Rails.root %>/report-template/script.js"></script>
+  <link rel="stylesheet" type="text/css" href="<%= Rails.root %>/report-template/styles.css">
+
+</head>
+<body onload="drawGraphics()">
+
+  <div class="section bordered">  
+    <h2>Campaign description</h2>
+    <table class="section">
+      <tr>
+        <td>Campaign #</td>
+        <td><%= @campaign.id %></td>
+      </tr>
+      <tr>
+        <td>Campaign Name</td>
+        <td><%= @campaign.name %></td>
+      </tr>
+      <tr>
+        <td>Start Date</td>
+        <td><%= @campaign.start_on %></td>
+      </tr>
+      <tr>
+        <td>End Date</td>
+        <td><%= @campaign.end_on %></td>
+      </tr>
+      <tr>
+        <td>Media Budget</td>
+        <td><%= @campaign.media_budget %></td>
+      </tr>
+      <tr>
+        <td>Account Manager</td>
+        <td><%= @account_manager ? @account_manager.first_name + " " + @account_manager.last_name : "NIL" %></td>
+      </tr>
+      <tr>
+        <td>Campaign Manager</td>
+        <td><%= @campaign_manager ? @campaign_manager.first_name + " " + @campaign_manager.last_name : "NIL" %></td>
+      </tr>    
+    </table>  
+  </div>
+
+  <div class="section bordered">  
+    <h2>Campaign Overview</h2>
+    <table class="section">
+      <tr>
+        <td>Campaign Name</td>
+        <td>Imps.</td>
+        <td>Clicks</td>
+        <td>Ctr</td>
+        <td>Conv.</td>
+        <td>eCPM</td>
+        <td>eCPC</td>
+        <td>eCPA</td>
+        <td>Spent</td>
+      </tr>
+      <tr>
+        <td><%= @campaign.name %></td>
+        <td><%= '%.2f' % @campaign.impressions %></td>
+        <td><%= '%.2f' % @campaign.clicks %></td>
+        <td><%= '%.2f' % @campaign.ctr %></td>
+        <td><%= '%.2f' % @campaign.conversions %></td>
+        <td><%= '%.2f' % @campaign.ecpm %></td>
+        <td><%= '%.2f' % @campaign.ecpc %></td>
+        <td><%= '%.2f' % @campaign.ecpa %></td>
+        <td><%= '%.2f' % @campaign.media_spent %></td>
+      </tr>
+    </table>  
+  </div>
+
+  <div class="section bordered after-next-page">  
+    <h2>Creatives Overview</h2>
+    <table class="section">
+      <tr>
+        <td>Campaign Size</td>
+        <td>Imps.</td>
+        <td>Clicks</td>
+        <td>Ctr</td>
+        <td>Conv.</td>
+        <td>eCPM</td>
+        <td>eCPC</td>
+        <td>eCPA</td>
+        <td>Spent</td>
+      </tr>
+      <% @creatives.each do | creative | %>
+        <tr>
+          <td><%= creative.name %></td>
+          <td><%= '%.2f' % creative.impressions %></td>
+          <td><%= '%.2f' % creative.clicks %></td>
+          <td><%= '%.2f' % creative.ctr %></td>
+          <td><%= '%.2f' % creative.conversions %></td>
+          <td><%= '%.2f' % creative.ecpm %></td>
+          <td><%= '%.2f' % creative.ecpc %></td>
+          <td><%= '%.2f' % creative.ecpa %></td>
+          <td><%= '%.2f' % creative.media_spent %></td>
+        </tr>
+      <% end %>
+    </table>  
+  </div>
+
+  <div class="section bordered">  
+    <h2>Spent Graphic</h2>
+    <canvas id="dataSpent" width="1000" height="400"></canvas>
+  </div>
+
+  <div class="section bordered after-next-page">  
+    <h2>Impressions & Clicks Graphic</h2>
+    <canvas id="dataImpressionsClicks" width="1000" height="400"></canvas>
+  </div>
+
+  <div class="section bordered">  
+    <h2>eCPM & eCPC Graphic</h2>
+    <canvas id="dataEcpmEcpc" width="1000" height="400"></canvas>
+  </div>
+
+  <div class="section bordered after-next-page">  
+    <h2>Ctr Graphic</h2>
+    <canvas id="dataCtr" width="1000" height="400"></canvas>
+  </div>
+
+  <div class="section bordered">  
+    <h2>Conversions Graphic</h2>
+    <canvas id="dataConversions" width="1000" height="400"></canvas>
+  </div>
+
+
+  <script type="text/javascript">
+    function drawGraphics () {
+      var defaultLabels = <%= @days.map { | day | day.name } %>;
+
+      draw(defaultLabels, "dataSpent", "Spent", <%= @days.map { | day | day.media_spent } %>);
+      draw(defaultLabels, "dataImpressionsClicks", "Impressions", <%= @days.map { | day | day.impressions } %>, "Clicks", <%= @days.map { | day | day.clicks } %>);
+      draw(defaultLabels, "dataEcpmEcpc", "Ecpm", <%= @days.map { | day | day.ecpm } %>, "eCPC", <%= @days.map { | day | day.ecpc } %>);
+      draw(defaultLabels, "dataCtr", "Ctr", <%= @days.map { | day | day.ctr } %>);
+      draw(defaultLabels, "dataConversions", "Conversions", <%= @days.map { | day | day.conversions } %>);
+    }
+
+  </script>
+
+</body>
+</html>

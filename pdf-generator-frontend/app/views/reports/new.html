@@ -1,0 +1,18 @@
+<div class="col-xs-12 col-md-8 col-md-offset-2">
+
+  <h2>New Report</h2>
+  
+  <form ng-submit="createReport(reportForm)" role="form" ng-init="reportForm = {}">
+
+    <div class="form-group">
+      <input type="text" name="campaign_id" ng-model="reportForm.report.campaign_id" placeholder="Campaign ID" required="required" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+    <textarea name="comment" ng-model="reportForm.report.comment" placeholder="Comment" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg">Create</button>
+  </form>
+
+</div>
